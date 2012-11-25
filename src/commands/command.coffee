@@ -13,8 +13,11 @@ class Command
 	# 		@rankPrivelege: What user types are allowed to use this function
 	# 			- Options:
 	# 				- 'host' = only can be called by host
-	# 				- 'mod' = can be called by host and mods
-	# 				- 'user' = can be called by hosts, mods, and all users
+	#				- 'cohost' = can be called by hosts & co-hosts
+	# 				- 'manager' or 'mod' = can be called by host, co-hosts, and managers
+	#				- 'bouncer' = can be called by host, co-hosts, managers, and bouncers
+	#				- 'featured' = can be called by host, co-hosts, managers, bouncers, and featured djs
+	# 				- 'user' = can be called by all
 	# 				- {'pointMin':min} = can be called by hosts and mods.  Users
 	# 					can call if the # of points they have > pointMin
 	# 		@functionality: actions bot will perform if conditions are satisfied
@@ -33,18 +36,14 @@ class Command
 
 	hasPrivelege: ->
 		user = data.users[@msgData.fromID].getUser()
-		if(@rankPrivelege=='host')
-			if(user.owner)
-				return true
-			else
-				return false
-		else if(@rankPrivelege=='mod')
-			if(user.owner || user.moderator)
-				return true
-			else
-				return false
-		else if(@rankPrivelege=='user')
-			return true
+		switch @rankPrivelege
+			when 'host'    then return user.owner
+			when 'cohost'  then return user.permission >=4
+			when 'mod'     then return user.permission >=3
+			when 'manager' then return user.permission >=3
+			when 'bouncer' then return user.permission >=2
+			when 'featured' then return user.permission >=1
+			else return true
 
 	commandMatch: ->
 		msg = @msgData.message

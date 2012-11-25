@@ -7,12 +7,7 @@ updateVotes = (obj) ->
 announceCurate = (obj) ->
     API.sendChat "/em: " + obj.user.username + " loves this song!"
 
-updateDjs = (obj) ->
-    data.djs = API.getDJs()
-
 handleUserJoin = (user) ->
-    data.host = API.getHost()
-    data.mods = API.getModerators()
     data.userJoin(user)
     data.users[user.id].updateActivity()
     API.sendChat "/em: " + user.username + " has joined the Room!"
@@ -38,8 +33,6 @@ handleVote = (obj) ->
     data.users[obj.user.id].updateVote(obj.vote)
 
 handleUserLeave = (user)->
-    data.host = API.getHost()
-    data.mods = API.getModerators()
     disconnectStats = {
         id : user.id
         time : new Date()

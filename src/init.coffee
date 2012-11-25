@@ -3,9 +3,6 @@ pupOnline = ->
 
 populateUserData = ->
 	users = API.getUsers()
-	data.djs = API.getDJs()
-	data.mods = API.getModerators()
-	data.host = API.getHost()
 	for u in users
 		data.users[u.id] = new User(u)
 		data.voteLog[u.id] = {}
