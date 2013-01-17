@@ -635,7 +635,7 @@ class newSongsCommand extends Command
 		selections['channels'].push chooseRandom chans
 
 		cMedia = API.getMedia()
-		if cMedia.author in arts
+		if cMedia? and cMedia.author in arts
 			selections['artist'] = cMedia.author
 		else
 			selections['artist'] = chooseRandom arts
