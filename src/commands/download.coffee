@@ -5,6 +5,7 @@ class downloadCommand extends Command
 		@rankPrivelege='user'
 
 	functionality: ->
+		return if !data.currentsong? # no song
 		e = encodeURIComponent
 		eAuthor = e(data.currentsong.author)
 		eTitle = e(data.currentsong.title)
