@@ -21,7 +21,7 @@ class cookieCommand extends Command
 	functionality: ->
 		msg = @msgData.message
 		r = new RoomHelper()
-		if msg.length > 8 #includes username
+		if(msg.substring(7, 8) == "@") #Valid cookie argument including a username!
 			user = r.lookupUser(msg.substr(8))
 			if user == false
 				API.sendChat "/em doesn't see '"+msg.substr(8)+"' in room and eats cookie himself"
