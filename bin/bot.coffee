@@ -365,26 +365,6 @@ class Command
 		else
 			return false
 
-class protectCommand extends Command
-	init: ->
-		@command='/protect'
-		@parseType='startsWith'
-		@rankPrivelege='mod'
-
-	functionality: ->
-		msg = @msgData.message
-		if msg.length > 9 #includes arg
-			username = msg.substring(10)
-			for id,user of data.users
-				if user.getUser().username == username
-					user.protected = true
-					API.sendChat "I shall protect you @"+username+" (I just wont kick you)"
-					return
-		API.sendChat "That aint no name I ever did see"
-		return
-		
-
-
 class cmdHelpCommand extends Command
 	init: ->
 		@command='/cmdhelp'
@@ -494,49 +474,6 @@ class cmdHelpCommand extends Command
 		
 
 
-class hugCommand extends Command
-	init: ->
-		@command='hugs pup'
-		@parseType='exact'
-		@rankPrivelege='user'
-
-	functionality: ->
-		API.sendChat "hugs @" + @msgData['from']
-
-
-class tacoCommand extends Command
-	init: ->
-		@command='taco'
-		@parseType='startsWith'
-		@rankPrivelege='user'
-
-	randomTaco: ->
-		tacos = [
-				"Mexican Pizza",
-				"Chicken Soft Taco",
-				"Double Decker Taco",
-				"Volcano Taco Supreme",
-				"Crunchy Taco Supreme",
-				"Grilled Steak Soft Taco",
-				"Cheesy Gordita Crunch",
-				"Doritos Locos Taco"
-			];
-		r = Math.floor Math.random()*tacos.length
-		return tacos[r]
-
-	functionality: ->
-        msg = @msgData.message
-        taco = @randomTaco()
-        if(msg.substring(5, 6) == "@")
-	        tacoName = msg.substring(6)
-	        if tacoName == '#Wolf Pup'
-	        	API.sendChat "No thanks I'll get fat :("
-	        else
-	        	API.sendChat "Yo @" + tacoName + ", " + @msgData.from + " just gave you a " + taco + "!"
-        else
-	        API.sendChat "Yo @" + @msgData.from + ", here is your " + taco + "!"
-
-
 class cookieCommand extends Command
 	init: ->
 		@command='cookie'
@@ -560,7 +497,7 @@ class cookieCommand extends Command
 	functionality: ->
 		msg = @msgData.message
 		r = new RoomHelper()
-		if msg.length > 8 #includes username
+		if(msg.substring(7, 8) == "@") #Valid cookie argument including a username!
 			user = r.lookupUser(msg.substr(8))
 			if user == false
 				API.sendChat "/em doesn't see '"+msg.substr(8)+"' in room and eats cookie himself"
@@ -568,42 +505,6 @@ class cookieCommand extends Command
 			else
 				API.sendChat "@"+user.username+", @"+@msgData.from+" has rewarded you with "+@getCookie()+". Enjoy."
 
-class punishCommand extends Command
-	init: ->
-		@command='punish'
-		@parseType='startsWith'
-		@rankPrivelege='mod'
-
-	getPunishment: (username)->
-		punishments=[
-			"/me rubs sandpaper on @{victim}'s scrotum"
-			"/me pokes @{victim} in the eyes"
-			"/me throws sand in @{victim}'s eyes"
-			"/me makes @{victim}'s mother cry"
-			"/me penetrates @{victim} with a sharpie"
-			"/me pinches @{victim}'s nipples super hard"
-			"/me gives @{victim} a wet willy"
-		]
-		p = Math.floor Math.random()*punishments.length
-		punishment = punishments[p].replace('{victim}',username)
-		punishment
-
-	functionality: ->
-		msg = @msgData.message
-		r = new RoomHelper()
-		if msg.length > 8 #username
-			name = msg.substr(8)
-			user = r.lookupUser name
-			if user == false
-				API.sendChat "/me punishes @"+@msgData.from+" for getting the syntax wrong."
-				setTimeout(->
-					API.sendChat "Seriously though, I don't recognize the username '"+name+"'",
-				750)
-			else
-				if user.owner
-					API.sendChat @getPunishment @msgData.from
-				else
-					API.sendChat @getPunishment(user.username)
 
 class newSongsCommand extends Command
 	init: ->
@@ -814,6 +715,7 @@ class downloadCommand extends Command
 		@rankPrivelege='user'
 
 	functionality: ->
+		return if !data.currentsong? # no song
 		e = encodeURIComponent
 		eAuthor = e(data.currentsong.author)
 		eTitle = e(data.currentsong.title)
@@ -1052,27 +954,6 @@ class forceSkipCommand extends Command
 				data.forceSkip = false
 				API.sendChat "Forced skipping disabled."
 		
-
-class fbCommand extends Command
-	init: ->
-		@command='/fb'
-		@parseType='exact'
-		@rankPrivelege='user'
-
-	functionality: ->
-		m = Math.floor Math.random()*@msgs.length
-		msg = @msgs[m].replace('{fb}','http://on.fb.me/HNzK5S')
-		API.sendChat msg
-
-	msgs: [
-		"Don't have any friends in real life? That's ok, we'll be your friend.  Join our facebook group: {fb}",
-		"Wondering what TIMarbury looks like?  Join our facebook group ({fb}) and find out for yourself!",
-		"We have a facebook group. Join it. Please. {fb}",
-		"The Dubstep Den is now on friendster! lol just kidding.  Here's our facebook group: {fb} you should join.",
-		"I bet you're handsome.  Join our facebook group so me0w can stalk your photos: {fb}"
-	]
-		
-
 
 class overplayedCommand extends Command
 	init: ->
