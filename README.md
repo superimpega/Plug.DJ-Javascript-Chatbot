@@ -2,7 +2,7 @@ Plug.DJ Moderation Helper Bot
 ==========================
 Written by John Backus - http://johnback.us/
 
-###Issue Reports are for bug reports or broken code!  I cannot help build your bot, install dependencies for you, or teach you how to program.
+###Want a bot but don't know how to program? Want to stop running your bot out of the browser?  Let me [configure, customize, and host your bot](http://signup.plugdjbots.com/)!
 
 **If you have any issues with the bot you want to bring up with me, then open an issue on the issues tab above.  If you message me on facebook, it will most likely end up in my "other" inbox (not my choice) and I wont see it.**
 
