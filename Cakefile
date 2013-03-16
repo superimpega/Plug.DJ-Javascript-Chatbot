@@ -9,7 +9,6 @@ appFiles  = [
 	'init'
 	'afk'
 	'commands/command'
-	'commands/cmdhelp'
 	'commands/cookie'
 	'commands/new_songs'
 	'commands/why_woot'

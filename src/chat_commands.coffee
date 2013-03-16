@@ -1,8 +1,5 @@
 cmds = [
-	hugCommand,
-	tacoCommand,
 	cookieCommand,
-	punishCommand,
 	newSongsCommand,
 	whyWootCommand,
 	themeCommand,
@@ -30,9 +27,6 @@ cmds = [
 	commandsCommand,
 	resetAfkCommand,
 	forceSkipCommand,
-	fbCommand,
-	cmdHelpCommand,
-	protectCommand,
 	disconnectLookupCommand,
 	voteRatioCommand,
 	avgVoteRatioCommand
