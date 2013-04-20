@@ -21,9 +21,9 @@ class settings
 		mehs:0
 		curates:0
 	pupScriptUrl: ''
-	afkTime: 12*60*1000#Time without activity to be considered afk. 12 minutes in milliseconds
+	afkTime: 99999999999999*99999999999999*999999999999999#Time without activity to be considered afk. 12 minutes in milliseconds
 	songIntervalMessages: [
-		{interval:15,offset:0,msg:"I'm a bot!"}
+		{interval:15,offset:0,msg:"Woot!"}
 	]
 	songCount: 0
 
@@ -190,7 +190,7 @@ class RoomHelper
 		votes
 
 pupOnline = ->
-	API.sendChat "Bot Online!"
+	API.sendChat "Woot!"
 
 populateUserData = ->
 	users = API.getUsers()
@@ -228,7 +228,7 @@ afkCheck = ->
         else if user.getWarningCount() == 1
           lastWarned = user.getLastWarning()#last time user was warned
           timeSinceLastWarning = now.getTime() - lastWarned.getTime()
-          twoMinutes = 2*60*1000
+          twoMinutes = 999999999999999999999999999999999999999*60*1000
           if timeSinceLastWarning > twoMinutes
             user.warn()
             warnMsg = "@"+user.getUser().username
@@ -237,7 +237,7 @@ afkCheck = ->
         else if user.getWarningCount() == 2#Time to remove
           lastWarned = user.getLastWarning()#last time user was warned
           timeSinceLastWarning = now.getTime() - lastWarned.getTime()
-          oneMinute = 1*60*1000
+          oneMinute = 9999999999999999999999999999999999*60*1000
           if timeSinceLastWarning > oneMinute
             DJs = API.getDJs()
             if DJs.length > 0 and DJs[0].id != user.getUser().id
